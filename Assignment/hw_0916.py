@@ -15,6 +15,10 @@ n = int(input("\nEnter a number: "))
 print("\n".join(('*' * i for i in range(1, n+1))))
 
 # 20185290 이하영
+print("Enter a number:")
+n = int(input())
+for i in range(1, n+1):
+    print("*"*i)
 
 # 20190406 이현지
 n = int(input("Enter a number: "))
