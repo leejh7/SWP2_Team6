@@ -1,4 +1,5 @@
 # 20160176 송영진
+import sys
 line = int(input("line: "))
 tri = 1
 for i in range(line):
@@ -20,9 +21,7 @@ n = int(input("Enter a number: "))
 for i in range(1, n+1):
     print("*"*i)
 
-
 # 20191670 조나영
-import sys
 
 N = int(sys.stdin.readline())
 
