@@ -8,7 +8,10 @@ for i in range(line):
         break
     tri += 1
     print()
+
 # 20181675 이준호
+n = int(input("\nEnter a number: "))
+print("\n".join(('*' * i for i in range(1, n+1))))
 
 # 20185290 이하영
 
