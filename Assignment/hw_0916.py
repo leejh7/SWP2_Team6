@@ -33,3 +33,7 @@ for i in range(1, N + 1):
     print("*" * i)
 
 # 20170228 한윤서
+n = int(input("n:"))
+
+for i in range(1, n+1):
+    print('*'*i)
