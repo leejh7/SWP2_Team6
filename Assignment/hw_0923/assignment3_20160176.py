@@ -15,7 +15,6 @@ def readScoreDB():
         for i in scdb:
             i['Age'] = int(i['Age'])
             i['Score'] = int(i['Score'])
-        print(scdb)
     except:
         print("Empty DB: ", dbfilename)
     else:
