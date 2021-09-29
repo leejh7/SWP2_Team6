@@ -38,6 +38,8 @@ def doScoreDB(scdb):
             if parse[0] == 'add':
                 if len(parse) != 4:
                     raise Exception("추가할 Name, Age, Score를 모두 입력하세요")
+                if not (parse[2].isdigit() and parse[3].isdigit()):
+                    raise Exception('age와 score는 정수로 입력하시오.')
                 record = {'Name':parse[1], 'Age':int(parse[2]), 'Score':int(parse[3])}
                 scdb += [record]
 
@@ -45,7 +47,7 @@ def doScoreDB(scdb):
             elif parse[0] == 'del':
                 if len(parse) != 2:
                     raise Exception("삭제할 name을 입력하세요")
-                for p in scdb:
+                for p in reversed(scdb):
                     if p['Name'] == parse[1]:
                         scdb.remove(p)    
 
@@ -85,7 +87,7 @@ def doScoreDB(scdb):
 def showScoreDB(scdb, keyname):
     for p in sorted(scdb, key=lambda person: person[keyname]):
         for attr in sorted(p):
-            print(attr + "=" + p[attr], end=' ')
+            print(attr + "=" + str(p[attr]), end=' ')
         print()
 
 
