@@ -68,7 +68,7 @@ def doScoreDB(scdb):
 
             # inc 추가
             elif parse[0] == 'inc':
-                if len(parse) < 3:
+                if len(parse) != 3:
                     raise Exception("Name과 amount를 모두 입력하세요")
                 sortKey = 'Score'
                 for p in scdb:
