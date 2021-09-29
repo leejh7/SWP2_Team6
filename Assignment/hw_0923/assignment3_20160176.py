@@ -46,7 +46,7 @@ def doScoreDB(scdb):
                     continue
                 record = {'Name': parse[1], 'Age': int(parse[2]), 'Score': int(parse[3])}
                 scdb += [record]
-                        elif parse[0] == 'del':
+                elif parse[0] == 'del':
                 count = 0
                 if len(parse) < 2:
                     print('이름을 입력해주세요')
