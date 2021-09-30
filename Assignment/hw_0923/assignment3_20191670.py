@@ -69,14 +69,12 @@ def doScoreDB(scdb):
                 print('Add a name to find.')
             except ValueError:
                 print('Please enter a string.')
-            else:
-                print('Not on the list.')
 
         elif parse[0] == 'inc':
             try:
                 for p in scdb:
                     if p['Name'] == parse[1]:
-                        p['Score'] += int(parse[2])
+                        p['Score'] = str(int(p['Score']) + int(parse[2]))
             except IndexError:
                 print('Add a name or amount to insert.')
             except ValueError:
