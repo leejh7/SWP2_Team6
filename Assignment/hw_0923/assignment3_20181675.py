@@ -32,6 +32,7 @@ def doScoreDB(scdb):
     while(True):
         try:
             inputstr = (input("Score DB > "))
+            target_exist = False
             if inputstr == "":
                 continue
             parse = inputstr.split(" ")
@@ -49,6 +50,9 @@ def doScoreDB(scdb):
                 for p in reversed(scdb):
                     if p['Name'] == parse[1]:
                         scdb.remove(p)
+                        target_exist = True
+                if not target_exist:
+                    raise Exception('del할 target을 찾지 못했습니다.')
             elif parse[0] == 'show':
                 sortKey = 'Name' if len(parse) == 1 else parse[1]
                 showScoreDB(scdb, sortKey)
@@ -59,6 +63,9 @@ def doScoreDB(scdb):
                 for p in scdb:
                     if p['Name'] == parse[1]:
                         target_scdb.append(p)
+                        target_exist = True
+                if not target_exist:
+                    raise Exception('find할 target을 찾지 못했습니다.')
                 showScoreDB(target_scdb, 'Age')
             elif parse[0] == 'inc':
                 if len(parse) != 3:
@@ -68,6 +75,9 @@ def doScoreDB(scdb):
                 for p in scdb:
                     if p.get('Name') == parse[1]:
                         p['Score'] += int(parse[2])
+                        target_exist = True
+                if not target_exist:
+                    raise Exception('inc할 target을 찾지 못했습니다.')
             elif parse[0] == 'quit':
                 break
             else:
