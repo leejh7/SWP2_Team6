@@ -12,9 +12,7 @@ def readScoreDB():
     scdb = []
     try:
         scdb =  pickle.load(fH)
-        for i in scdb:
-            i['Age'] = int(i['Age'])
-            i['Score'] = int(i['Score'])
+
     except:
         print("Empty DB: ", dbfilename)
     else:
@@ -40,22 +38,18 @@ def doScoreDB(scdb):
             if parse[0] == 'add':
                 if len(parse) < 4:
                     print('name, age, score를 모두 입력하세요.')
-                    continue
                 if not (parse[2].isdigit() and parse[3].isdigit()):
                     print('age와 score는 숫자로 입력하세요.')
-                    continue
                 record = {'Name': parse[1], 'Age': int(parse[2]), 'Score': int(parse[3])}
                 scdb += [record]
-                elif parse[0] == 'del':
+            elif parse[0] == 'del':
                 count = 0
                 if len(parse) < 2:
                     print('이름을 입력해주세요')
-                    continue
-                for p in scdb:
+                for p in reversed(scdb):
                     if p['Name'] == parse[1]:
                         count += 1
                         scdb.remove(p)
-                        break
                 if count == 0:
                     print('해당 이름이 존재하지 않습니다.')
             elif parse[0] == 'show':
@@ -64,22 +58,22 @@ def doScoreDB(scdb):
             elif parse[0] == 'quit':
                 break
             elif parse[0] == 'find':
+                count = 0
                 if len(parse) < 2:
                     print('이름을 입력해주세요')
-                    continue
                 tmp_scdb = []
                 for i in scdb:
                     if i['Name'] == parse[1]:
+                        count += 1
                         tmp_scdb.append(i)
-                        showScoreDB(tmp_scdb, 'Name')
-                        break
+                if count == 0:
+                    print('해당 이름이 없습니다.')
+                showScoreDB(tmp_scdb, 'Name')
             elif parse[0] == 'inc':
                 if len(parse) < 3:
                     print('name과 amount를 모두 입력하세요.')
-                    continue
                 if not parse[2].isdigit():
                     print('amount는 숫자로 입력하세요.')
-                    continue
                 for i in scdb:
                     if i['Name'] == parse[1]:
                         i['Score'] += int(parse[2])
