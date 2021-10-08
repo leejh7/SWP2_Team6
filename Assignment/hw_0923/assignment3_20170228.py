@@ -1,6 +1,7 @@
 import pickle
 
-dbfilename = 'assignment3_20170228.dat'
+dbfilename = 'test3_4.dat'
+
 
 def readScoreDB():
     try:
@@ -11,7 +12,7 @@ def readScoreDB():
 
     scdb = []
     try:
-        scdb =  pickle.load(fH)
+        scdb = pickle.load(fH)
     except:
         print("Empty DB: ", dbfilename)
     else:
@@ -28,22 +29,25 @@ def writeScoreDB(scdb):
 
 
 def doScoreDB(scdb):
-    while(True):
+    while (True):
         inputstr = (input("Score DB > "))
         if inputstr == "": continue
         parse = inputstr.split(" ")
         if parse[0] == 'add':
-            record = {'Name':parse[1], 'Age':parse[2], 'Score':parse[3]}
+            record = {'Name': parse[1], 'Age': parse[2], 'Score': parse[3]}
             scdb += [record]
         elif parse[0] == 'del':
+            dellist = []
             try:
                 for p in scdb:
                     if p['Name'] == parse[1]:
-                        scdb.remove(p)
+                        dellist.append(p)
+                for p in dellist:
+                    scdb.remove(p)
             except IndexError:
-                print("Input Name")
+                print("input 'del name':")
         elif parse[0] == 'show':
-            sortKey ='Name' if len(parse) == 1 else parse[1]
+            sortKey = 'Name' if len(parse) == 1 else parse[1]
             showScoreDB(scdb, sortKey)
         elif parse[0] == 'find':
             try:
@@ -51,14 +55,14 @@ def doScoreDB(scdb):
                     if p['Name'] == parse[1]:
                         print(p)
             except IndexError:
-                print("Input Name")
+                print("Input 'find name':")
         elif parse[0] == 'inc':
             try:
                 for p in scdb:
                     if p['Name'] == parse[1]:
                         p['Score'] = str(int(p['Score']) + int(parse[2]))
             except IndexError:
-                print("Input Name")
+                print("Input 'inc name amount':")
         elif parse[0] == 'quit':
             break
         else:
@@ -70,7 +74,6 @@ def showScoreDB(scdb, keyname):
         for attr in sorted(p):
             print(attr + "=" + p[attr], end=' ')
         print()
-
 
 scoredb = readScoreDB()
 doScoreDB(scoredb)
