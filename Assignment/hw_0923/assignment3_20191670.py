@@ -39,16 +39,17 @@ def doScoreDB(scdb):
 
         if parse[0] == 'add':
             try:
-                record = {'Name':parse[1], 'Age':str(int(parse[2])), 'Score':str(int(parse[3]))}
-                scdb += [record]
+                if (parse[2].isdigit() and parse[3].isdigit()):
+                    record = {'Name':parse[1], 'Age':parse[2], 'Score':parse[3]}
+                    scdb += [record]
+                else:
+                    print('Please enter an integer.')
             except IndexError:
                 print('Enter a age or score to add')
-            except ValueError:
-                print('Please enter an integer.')
 
         elif parse[0] == 'del':
             try:
-                for p in scdb:
+                for p in reversed(scdb): # 이준호 학우님의 아이디어 반영
                     if p['Name'] == str(parse[1]):
                         scdb.remove(p)
             except IndexError:
