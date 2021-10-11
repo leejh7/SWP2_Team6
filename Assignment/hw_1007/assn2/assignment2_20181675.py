@@ -14,7 +14,7 @@ def recbinsearch(L, l, u, target):
         return -1
     mid = (l + u) // 2
     if L[mid] == target:
-        return target
+        return mid
     elif L[mid] < target:
         return recbinsearch(L, mid+1, u, target)
     else:
