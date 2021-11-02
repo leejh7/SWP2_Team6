@@ -14,7 +14,7 @@ class ScoreDB(QWidget):
         self.dbfilename = 'assignment6.dat'
         self.scoredb = []
         self.readScoreDB()
-        self.showScoreDB()
+        self.showScoreDB(self.scoredb)
 
     def initUI(self):
         self.setGeometry(300, 300, 500, 250)
@@ -106,8 +106,8 @@ class ScoreDB(QWidget):
         Age = int(self.ageEdit.text())
         Score = int(self.scoreEdit.text())
         record = {'Name': Name, 'Age':Age, 'Score':Score}
-        self.scoredb += record
-        self.showScoreDB()
+        self.scoredb += [record]
+        self.showScoreDB(self.scoredb)
 
     def Del_button(self):
         Name = self.nameEdit.text()
@@ -115,19 +115,23 @@ class ScoreDB(QWidget):
             if p['Name'] == Name:
                 self.scoredb.remove(p)
                 target_exist = True
-        self.showScoreDB()
+        self.showScoreDB(self.scoredb)
 
     def Find_button(self):
         Name = self.nameEdit.text()
-        self.showScoreDB(Name)
+        target_scdb = []
+        for p in self.scoredb:
+            if p['Name'] == Name:
+                target_scdb.append(p)
+        self.showScoreDB(target_scdb)
 
     def Inc_button(self):
-        Name = self.NameEdit.text()
-        Amount = int(self.AmountEdit.text())
+        Name = self.nameEdit.text()
+        Amount = int(self.amountEdit.text())
         for p in self.scoredb:
             if p['Name'] == Name:
                 p['Score'] += int(Amount)
-        self.showScoreDB()
+        self.showScoreDB(self.scoredb)
 
 
     def closeEvent(self, event):
@@ -156,7 +160,7 @@ class ScoreDB(QWidget):
         fH.close()
 
     #####
-    def showScoreDB(self, keyname=None):
+    def showScoreDB(self, scdb):
         keyname = self.keyCombo.currentText()
         texts = ''
         for p in sorted(self.scoredb, key=lambda person: person[keyname]):
@@ -170,4 +174,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = ScoreDB()
     sys.exit(app.exec_())
-
